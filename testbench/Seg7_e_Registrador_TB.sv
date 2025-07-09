@@ -1,0 +1,42 @@
+module Seg7_e_Registrador_TB;
+
+logic clk, rst, en;
+logic [3:0] num_bin, reg_out;
+logic [6:0] num_seg7;
+
+Registrador r1(
+	.clk(clk),
+	.rst(rst),
+	.en(en),
+	.in(num_bin),
+	.out(reg_out)
+);
+
+Hex7Seg decoder_hex0(
+	.in(reg_out),
+	.out(num_seg7)
+);
+
+initial begin
+	clk = 1'b0; rst = 1'b0; en = 1'b1; num_bin = 4'hA; #6;
+	
+	rst = 1'b1; #5;
+	
+	num_bin = 4'h7; #7;
+	num_bin = 4'h3; #12;
+	num_bin = 4'h9; #8;
+	
+	rst = 1'b0; #3;
+   rst = 1'b1; #3;
+	
+	en = 1'b0; num_bin = 4'h5; #4;
+	en = 1'b1; #2;
+	
+	num_bin = 4'hF; #14;
+end
+
+always begin
+	#5; clk = ~clk; 
+end
+	
+endmodule
