@@ -1,0 +1,12 @@
+    addi x7, zero, 8     # Valor de Teste
+multiplo4:
+    addi t0, zero, 1     # Salva a constante 1 em t0
+    addi t1, zero, 0x003 # Salva a constante 0x003 em t1
+    and  x7, x7, t1      # Faz uma mascara que zera todos os bits, com excecao do 2 menos significativos
+    slt  x1, x7, t0      # Salva 1 em x1 se x7 < 1, ou seja, se x7 for multiplo de 4
+    
+# Para um número ser multiplo de 4 é necessário que os
+# 2 bits menos significativos sejam 0;
+# 11000 é multiplo
+# 10010 não é multiplo
+# 11101 não é multiplo
